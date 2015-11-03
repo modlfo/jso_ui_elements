@@ -1,6 +1,8 @@
 # jso_ui_elements
 Test of making UI elements completely in Ocaml (js_of_ocaml)
 
+You can see the result here http://modlfo.github.io/jso_ui_elements/
+
 Note: this is not a full library (yet). I'm just playing with js_of_ocaml and learning how to make web apps with ocaml.
 
 ### Requirements
