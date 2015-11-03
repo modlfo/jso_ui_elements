@@ -3,7 +3,7 @@ open Color
 open CanvasUI
 
 
-let document = Html.window##.document
+let document = Dom_html.window##.document
 
 (* Gets the div with id='content' to put stuff there *)
 let content =
