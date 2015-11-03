@@ -1,0 +1,2 @@
+<*.ml>    : package(js_of_ocaml.ppx)
+<*.byte>  : package(js_of_ocaml)
