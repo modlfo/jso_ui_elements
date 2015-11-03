@@ -56,14 +56,14 @@ module CanvasUI(H:CanvasUIViewSig) = struct
    let getId (c:t) : string =
       Js.to_string (!c.canvas##.id)
 
+   let getOptFloat v : float =
+         Js.Optdef.get v (fun () -> 0) |> float_of_int
+
    (**
       Updates the mouse information based on a mouse event.
       Returns the difference in x and y axis.
    *)
    let updateMousePos e mouse : float * float =
-      let getOptFloat v : float =
-         Js.Optdef.get v (fun () -> 0) |> float_of_int
-      in
       let x = getOptFloat e##.pageX in
       let y = getOptFloat e##.pageY in
       let diff_x = x -. mouse.pre_x in
@@ -98,6 +98,15 @@ module CanvasUI(H:CanvasUIViewSig) = struct
                   draw c;
                   ()
                end;
+            Js._true
+
+   let mouseWheelHandler (c:t) =
+      Dom_html.handler @@
+         fun (e:Dom_html.mousewheelEvent Js.t) ->
+            let diff_x = getOptFloat e##.wheelDeltaX in
+            let diff_y = getOptFloat e##.wheelDeltaY in
+            set c (H.updateToMouseMove (get c) diff_x diff_y);
+            draw c;
             Js._true
 
    (** Creates a new element *)
@@ -143,6 +152,14 @@ module CanvasUI(H:CanvasUIViewSig) = struct
             Dom_html.window##.document
             Dom_html.Event.mousemove
             (mouseMoveHandler elem)
+            Js._false
+      in
+      let _ =
+         (* This one is attached to the canvas so it only triggers over the element *)
+         Dom_html.addEventListener
+            canvas
+            Dom_html.Event.mousewheel
+            (mouseWheelHandler elem)
             Js._false
       in
       elem
