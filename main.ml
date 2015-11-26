@@ -14,13 +14,13 @@ let content =
 let onload _ =
    (* Creates two knobs *)
    let knob1 = CanvasUIKnob.create "knob1" 100. 100. in
-   let knob2 = CanvasUIKnob.create "knob2" 100. 100. in
+   let slider1 = CanvasUIVSlider.create "slider1" 100. 100. in
    (* Draw them *)
    CanvasUIKnob.draw knob1;
-   CanvasUIKnob.draw knob2;
+   CanvasUIVSlider.draw slider1;
    (* Put them into the 'content' div *)
    Dom.appendChild content (CanvasUIKnob.getCanvas knob1);
-   Dom.appendChild content (CanvasUIKnob.getCanvas knob2);
+   Dom.appendChild content (CanvasUIVSlider.getCanvas slider1);
    Js._false
 ;;
 
